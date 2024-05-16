@@ -106,6 +106,8 @@ If the user chooses the option 1, the function ```ask_info``` will be called
 >    save_device(device_info)
 >    print(f'The device "{device}" was registered sucessfully!\n')
 >    register_menu()
+>```
+
 This function has the purpose of asking the user to register a device, along with its power, creating a dictionary called ```device_info``` which contains the name of the device as one value, and its power as the other value. Right after that, the fuction ```save_device``` is called passing the dictionary as the argument, and a message saying that the device was registered sucessfully is printed. After registering a device, the function ```register_menu``` is called, so that the user can choose between registering another device or going back to the main menu.
 ### 4. Get power function
 ```python
@@ -280,15 +282,6 @@ class Devices:
             print("\nYou haven't registered any devices yet")
             return "Error"
 ```
-This class has the purpose of leading with the registered devices, creating two lists called ```self.devices``` and  ```self.names```. The function ```open_device``` tries to open the "devices.csv" file, returning "Error" if this file doesn't exist. It uses ```csv.DictReader``` to read information about devices as dictionaries and create new ones, where the key is the device name and the value is the device power. Those new dictionaries are appended to the ```self.devices``` list and the device's names are appended to the ```self.names```list.
+This class has the purpose of leading with the registered devices, creating two lists called ```self.devices``` and  ```self.names```. The function ```open_device``` tries to open the "devices.csv" file, returning "Error" if this file doesn't exist. It uses ```csv.DictReader``` to read information about devices as dictionaries and create new ones, where the keys are the devices's names and the values are their respective powers. Those new dictionaries are appended to the ```self.devices``` list and the device's names are appended to the ```self.names```list. The [```show_info```](https://github.com/Ez1309/test/edit/main/README.md#7-show-info-funcion) function prints the registered devices as I said before.
+
   
-
-
-
-
-
-
-
-
-
-
