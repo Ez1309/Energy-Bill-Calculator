@@ -242,6 +242,47 @@ def remove_device():
 ```
 Similar to the ```(3) Show devices info``` option, the ```(4) Remove a device``` option also shows the formated table that contains the registered devices of the CSV file, but after printing the table, it prompts the user to select a device for removal or to press enter and return to the main menu. If the ```show_info``` function returns "Error" - **_which means that that no devices have been registered yet_** - the ```Press any key to return``` message will be printed and the user will be able to return to the main menu, just like it happend with the device showing option. If the user types a device that is not in the listed table, a message saying that the device was not found will be printed and the loop will restart to print the input again. Finally, if the user types a device from the list, the loop will be broken and then, the ```pandas``` library will do the job of reading the CSV file, looking for the row that contains the specified device, and remove it (I am assuming that every device was registered only once. If there's more than one row with the same name, all of them will be removed). After removing a device, the ```remove_options(device)``` function will be called to inform that the selected device has been removed and to make the user choose between removing another device or going back to the main menu.
 
+### 9. Devices class
+```python
+class Devices:
+    def __init__(self):
+        self.devices = []
+        self.names = []
+        self.open_devices()
+        
+    def open_devices(self):
+        # Trying to open the CSV file that contains the devices information
+        try:
+            with open("devices.csv") as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    device_name = row["Device"].lower().strip()
+                    power= row["Power"].lower()
+                    device = {device_name:power}
+                    self.devices.append(device)
+                    self.names.append(device_name)
+        except FileNotFoundError:
+            return "Error"
+    
+    def show_info(self):
+        table = []
+        try:
+            with open("devices.csv") as file:
+                reader = csv.reader(file)
+                for Device, Power in reader:
+                    table.append({"Device": Device, "Power": Power})
+
+            info = tabulate(table, headers="firstrow", tablefmt="rounded_grid", stralign="center", )
+            print("---- REGISTERED DEVICES ----")
+            print(info)
+        except FileNotFoundError:
+            print("---- DEVICES TABLE DOES NOT EXIST ----")
+            print("\nYou haven't registered any devices yet")
+            return "Error"
+```
+This class has the purpose of leading with the registered devices, creating two lists called ```self.devices``` and  ```self.names```. The function ```open_device``` tries to open the "devices.csv" file, returning "Error" if this file doesn't exist. It uses ```csv.DictReader``` to read information about devices as dictionaries and create new ones, where the key is the device name and the value is the device power. Those new dictionaries are appended to the ```self.devices``` list and the device's names are appended to the ```self.names```list.
+  
+
 
 
 
