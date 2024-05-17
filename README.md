@@ -225,7 +225,7 @@ The terminal is cleared, and a class called ```Devices``` (I´ll talk more about
 >
 >```
 
-Basically, it creates a empty list called table and try to read the information of the CSV file "devices.csv". If the file doesn't exist, a error message will be printed and the string "Error" will be returned. If the file exists, the dictionaries with the devices information are appended to the table list. Then, I used tabulate to create and print a formated table with the content of the csv file, that - in the context of the previous example - looks like this
+Basically, it creates a empty list called table and try to read the information of the CSV file "devices.csv". If the file doesn't exist, a error message will be printed and the string "Error" will be returned. If the file exists, the dictionaries with the devices information are appended to the table list. Then, I used tabulate to create and print a formated table with the content of the csv file, that - **_in the context of the previous example_** - looks like this
 
 <div align="center">
     
@@ -340,7 +340,7 @@ This class is responsible for opening the CSV file called "energy_price.csv" - *
 
 ### 11. Functions used to calculate the energy bill
 Finally, after all of that explanation, there are the most important functions of this project:
--```calculate_info```
+- ```calculate_info```
 - ```get_state```
 - ```get_price```
 - ```get_device```
@@ -508,11 +508,5 @@ Here, due to the format of the regular expression, if the match is something lik
 <br/>
 After all that checking, the ```get_time``` function returns the time_input (which is a string and will be used by the ```calculate_info``` function) and the time (which is a float number and will be used to calculate the energy consumption)
 
-
-
-
-
-
-
-
-  
+### 11.5 Get values function
+The last step before showing the bill 
