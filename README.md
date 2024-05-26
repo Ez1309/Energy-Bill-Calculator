@@ -1,6 +1,6 @@
 # ⚡ENERGY BILL CALCULATOR ⚡
 #### **Get to know on how much you will get charged based on the state you live and for how long you use a device everyday**
-#### Project demo: <https://www.youtube.com/watch?v=a8CwpGARAsQ>
+#### Project demo: <https://www.youtube.com/watch?v=oc-5kGqS-xY>
 
 #### Definition :
 In a few words, this program can be used to register devices - **_as well as their power_** - calculate your month's energy consumption and tell how much you will be charged (based on the price of kWh of a USA state)
@@ -44,8 +44,8 @@ And the test_project.py file only uses the ```pytest``` library
 >     print("| (5) Exit the program           |")
 >     print("|________________________________|")
 >```
-The ```main``` function is only responsible for calling the ```menu``` funcion, which in turn will call the ```print_menu``` and the ```handle_option``` 
-funcion. The ```print_menu``` function just shows a small menu with 5 options that can be chosen when the function ```handle_option``` is called.    
+The ```main``` function is only responsible for calling the ```menu``` funcion, which in turn will call the ```print_menu``` and the ```handle_option```
+funcion. The ```print_menu``` function just shows a small menu with 5 options that can be chosen when the function ```handle_option``` is called.
 
 ### 2. Option Handling function
 >```python
@@ -59,7 +59,7 @@ funcion. The ```print_menu``` function just shows a small menu with 5 options th
 >            pass
 >        else:
 >            break
->        
+>
 >    if option == "1":
 >        ask_info()
 >
@@ -76,11 +76,11 @@ funcion. The ```print_menu``` function just shows a small menu with 5 options th
 >        keyboard.read_key(suppress=True)
 >        clear_screen()
 >        menu()
->    
+>
 >    elif option == "4":
 >        clear_screen()
 >        remove_device()
->        
+>
 >    elif option == "5":
 >        sys.exit()
 >```
@@ -140,14 +140,14 @@ This function has the role of prompting the user for the power of the device to 
 ### 5. Convert power
 >```python
 >def convert_power(power):
->    
+>
 >    match = re.match(r"^([\d]*\.?[\d]*)(?:\s)?(k?w)$", power, re.IGNORECASE)
 >
 >    if len(match.group(2)) == 1:
 >        power = match.group(1)
 >        power = str(round(float(power))) + " W"
 >        return power
->    
+>
 >    if len(match.group(2)) == 2:
 >        power = match.group(1)
 >        power = round(float(power) * 1000)
@@ -161,7 +161,7 @@ This function simply checks if the power is in W (watts) or in kW (kilowatts). S
 >```python
 >def save_device(device_info):
 >    headers = ["Device", "Power"]
->    
+>
 >    with open("devices.csv", "a", newline="") as file:
 >        file_is_empty = os.stat("devices.csv").st_size == 0
 >        writer = csv.DictWriter(file, fieldnames=headers, delimiter=",")
@@ -187,7 +187,7 @@ This function is called in order to save the device information (that is, the de
 After appending the device information to "devices.csv", the command ```devices.open_devices()``` - **_which stands for a specific function of a class initialized in other part of the code as ```devices```  (more on that in a while)_** - is runned, to make sure that the list of devices got updated.
 
 ### 7. Show info funcion
-Before explaining the second option of the menu ```(2) Calculate your energy bill```, I will explain the third option ```(3) Show devices info```. As you can imagine, this function is used to show what are the registered devices in the CSV file. 
+Before explaining the second option of the menu ```(2) Calculate your energy bill```, I will explain the third option ```(3) Show devices info```. As you can imagine, this function is used to show what are the registered devices in the CSV file.
 <br/> <br/> When the user chooses the third option:
 >```python
 >if option == "3":
@@ -225,11 +225,11 @@ The terminal is cleared and the function ```show_info``` is called. This functio
 Basically, it creates a empty list called table and try to read the information of the CSV file "devices.csv". If the file doesn't exist, a error message will be printed and the string "Error" will be returned. If the file exists, the dictionaries with the devices information are appended to the table list. Then, I used tabulate to create and print a formated table with the content of the csv file, that - **_in the context of the previous example_** - looks like this
 
 <div align="center">
-    
+
 ![image](https://github.com/Ez1309/test/assets/166740385/e83c9c90-f792-4818-bd19-c9f26ecb1c0a)
 
 </div>
-    
+
 Then, outside of the class, a message saying ```Press any key to return``` is printed and - **_before clearing the terminal and calling the menu again_** - the ```keyboard.read_key(suppress=True)``` command waits for any key to be pressed. I used the time library - **_imported as tm_** - ```tm.sleep(0.1)``` to avoid catching any previous key pressing.
 
 ### 8. Remove device function
@@ -244,9 +244,9 @@ Then, outside of the class, a message saying ```Press any key to return``` is pr
 >        clear_screen()
 >        menu()
 >    else:
->        
+>
 >        while True:
->            device = input("\nType the device to be removed or press enter to return: ").strip().title()
+>            device = input("\nType the device to be removed\nor press enter to return: ").strip().title()
 >            if device == "":
 >                clear_screen()
 >                menu()
@@ -276,7 +276,7 @@ Similar to the ```(3) Show devices info``` option, the ```(4) Remove a device```
 >        self.names = []
 >        self.bill_info = []
 >        self.open_devices()
->        
+>
 >    def open_devices(self):
 >        try:
 >            with open("devices.csv") as file:
@@ -289,7 +289,7 @@ Similar to the ```(3) Show devices info``` option, the ```(4) Remove a device```
 >                    self.names.append(device_name)
 >        except FileNotFoundError:
 >            return "Error"
->    
+>
 >    def show_info(self):
 >        table = []
 >        try:
@@ -346,7 +346,7 @@ Finally, after all of that explanation, there are the most important functions o
 - ```get_time```
 - ```get_values```
 - ```show_bill```
-  
+
 Going back to the ```handle_option``` function, when the user chooses the ```(2) Calculate your energy bill``` option a bunch of things happen
 
 >```python
@@ -395,9 +395,9 @@ After choosing the second option and clearing the terminal, the ```get_state``` 
 >    states = States()
 >    print(f"------- ENERGY BILL CALCULATOR -------")
 >    while True:
->        
+>
 >        state = input("\nIn what state do you live? ").strip().lower().title()
->        
+>
 >        if state.lower() not in states.names:
 >            clear_screen()
 >            print(f"------- ENERGY BILL CALCULATOR -------")
@@ -465,7 +465,7 @@ Now that the user has chosen a state and a device, the last step to calculate th
 >            calculate_info(state, price, device)
 >            print(f'\n"{time_input}" is not a valid time.\nUse a "N hour(s)", "N minute(s)" or a "N hour(s) and N minute(s)" format')
 >            continue
->        
+>
 >        if "hour" in match.group(2):
 >            if not 0 < int(match.group(1)) <= 24:
 >                clear_screen()
@@ -513,14 +513,14 @@ After all that checking, the ```get_time``` function returns the time_input (a s
 The last step before showing the bill is to do the math over all of those values
 >```python
 >def get_values(price, device, time):
->    
+>
 >    power = float([i[device.lower()] for i in devices.devices if device.lower() in i][0].removesuffix(" w"))
 >
 >    daily_usage = round(((power/1000)) * time, 2)
 >    daily_charge = round(daily_usage * (price/100), 2)
 >    month_usage = round(daily_usage * 30, 2)
 >    month_charge = round(daily_charge * 30, 2)
->    
+>
 >    bill_numbers = (daily_usage, daily_charge, month_usage, month_charge)
 >    devices.bill_info.append(bill_numbers)
 >
@@ -551,4 +551,53 @@ After informing all devices that have been used in the month, the user will be s
 >```
 Basically, this function creates four lists, containing all of the values of daily energy usage , daily charge, month energy usage and total charge respectively. All of those values will be summed and stored in du (daily usage), dc (daily charge), mu (month usage) and tc (total charge) variables. After that, the energy bill will be printed showing the state and all of those calculated values. I used ```sys.exit()``` to stop the program and finish the session.
 
-## 
+## Testing
+#### I used ```pytest``` to test three function of this project
+>```python
+>>import pytest
+>
+>from project import States
+>from project import convert_power
+>from project import get_price
+>from project import convert_time
+>
+>def main():
+>    test_convert_power
+>    test_get_price
+>    test_convert_time
+>
+>def test_convert_power():
+>    with pytest.raises(AttributeError):
+>        assert convert_power("cat")
+>        assert convert_power("8 watts")
+>        assert convert_power("2 kilowatts")
+>        assert convert_power("8")
+>        assert convert_power("0")
+>        assert convert_power("0 w")
+>        assert convert_power("0 kw")
+>    assert convert_power("1 w") == "1 W"
+>    assert convert_power("1 kw") == "1000 W"
+>    assert convert_power("1.5 kw") == "1500 W"
+>    assert convert_power("1.5 w") == "2 W"
+>    assert convert_power("1.8 w") == "2 W"
+>    assert convert_power("1.2 w") == "1 W"
+>
+>def test_get_price():
+>    states = States()
+>    assert get_price(states, "Alabama") == 11.59
+>    assert get_price(states, "Massachusetts") == 21.27
+>    assert get_price(states, "California") == 22.33
+>
+>def test_convert_time():
+>    assert convert_time("1 hour") == 1.0
+>    assert convert_time("2 hours") == 2.0
+>    assert convert_time("30 minutes") == 0.5
+>    assert convert_time("45 minutes") == 0.75
+>    assert convert_time("1 hour and 30 minutes") == 1.5
+>    assert convert_time("2 hours and 45 minutes") == 2.75
+>
+>
+>if __name__ == "__main__":
+>    main()
+>```
+#### Basically, this test file checks if the power is being converted to W (watts) correctly, if the price is also correct, depending on the state, and the last test if to check if the time is being converted to a float number (converting minutes to hours)
