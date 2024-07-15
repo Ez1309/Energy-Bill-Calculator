@@ -7,7 +7,7 @@
 In a few words, this website uses flask and pandas to get CSV or XLSX files as input and convert them to a db file. The user can download the file or view them as a HTML table
 
 #### Table of contents:
-1. [1. Index.html](#1-index-html)
+1. [1. Index.html](#1-indexhtml)
 
 # Code explanation
 ## App.py
@@ -141,7 +141,7 @@ On the other hand, if ```view_file``` is found, it means that the user has uploa
 This route basically removes the user id from the database filename and send this file to be downloaded. This file will then be acessed by the index.html in the context of download.
 
 ## HTML templates
-### <a id="1-index-html"></a>1. Index.html
+### 1. Index.html
 >```html
 > <!DOCTYPE html>
 > <html lang="en">
