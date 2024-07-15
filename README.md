@@ -9,9 +9,9 @@ In a few words, this website uses flask and pandas to get CSV or XLSX files as i
 ## Table of Contents
 
 ### App.py
-1. [Index route ("/")](#1-index-route-)
-2. [Upload route ("/upload")](#2-upload-route-upload)
-3. [Download route ("/download/<db_name>")](#3-download-route-downloaddb_name)
+1. [Index route](#1-index-route-)
+2. [Upload route](#2-upload-route-upload)
+3. [Download route](#3-download-route-downloaddb_name)
 
 ### HTML templates
 1. [Index.html](#1-indexhtml)
@@ -90,7 +90,7 @@ In a few words, this website uses flask and pandas to get CSV or XLSX files as i
 Basically, app.py uses flask to create the routes, render html templates and send files to download, werkzeug.utils to keep the file managment more safe, uuid to create a unique id for each user session and helpers.py to get some extra functions that do the job themselves.
 
 ## Routes
-###1. Index route ("/")
+### <a id="index-route"></a>1. Index route ("/")
 >```python
 > @app.route("/", methods=["GET", "POST"])
 > def index():
@@ -102,7 +102,7 @@ Basically, app.py uses flask to create the routes, render html templates and sen
 
 The index route simply cleans up any previous session data (such as ```db_name``` and ```session_id```) and redirects the user to the upload route ("/upload"). It accepts get requests when the user is acessing the website for the first time, and post requests when the user converts the file and wants to download it.
 
-###2. Upload route ("/upload")
+### <a id="upload-route"></a>2. Upload route ("/upload")
 >```python
 > @app.route("/upload", methods=["GET", "POST"])
 > def upload_file():
@@ -140,7 +140,7 @@ Firstly, the upload function attach the ```unique_id``` to the flask session. Th
 <br>
 On the other hand, if ```view_file``` is found, it means that the user has upload a file to be displayed as a html table, so the function also attaches the filename to the session id, and saves it to the upload folder. Then, it creates a variable called data, that holds the information of the CSV or XLSX file to be displayed. If this data is a list (which means the file is a CSV file with a sigle sheet) the function renders the ```table.html``` template. If the file is a dictionary (which means the file is a XLSX with one or more sheets) the function renders the ```sheets.html``` template.
 
-###3. Download route ("/download/<db_name>")
+### <a id="download-route"></a>3. Download route ("/download/<db_name>")
 >```python
 > @app.route("/download/<db_name>", methods=["GET"])
 > def download_file(db_name):
@@ -155,7 +155,7 @@ On the other hand, if ```view_file``` is found, it means that the user has uploa
 This route basically removes the user id from the database filename and send this file to be downloaded. This file will then be acessed by the index.html in the context of download.
 
 ## HTML templates
-### 1. Index.html
+### <a id="index-html"></a>1. Index.html
 >```html
 > <!DOCTYPE html>
 > <html lang="en">
@@ -278,7 +278,7 @@ Finally, if everythings goes well, a download modal will appear with a button to
 
 
 The other nav tab will have the same input form, but this time, when the user clicks upload, the file will be displayed as a HTML table.
-###2. Table.html
+### <a id="tables-html"></a>2. Table.html
 >```html
 > <!DOCTYPE html>
 > <html lang="en">
@@ -332,7 +332,7 @@ Tables.html is rendered when the user input a raw CSV file with a single sheet. 
   <img src="https://github.com/user-attachments/assets/1b67ca01-42d8-4b1d-b8a4-8ad5b7c9a977">
 </p>
 
-###3. Sheets.html
+### <a id="sheets-html"></a>3. Sheets.html
 >```html
 >> <!DOCTYPE html>
 > <html lang="en">
@@ -465,7 +465,7 @@ The back button just redirects the user to the index route.
 >         for file in files:
 >             os.remove(file)
 >```
-###1. Create_db
+### <a id="create-db"></a>1. Create_db
 >```python
 > def create_db(filename, db_name):
 >     """
@@ -500,7 +500,7 @@ Similar to the XLSX case, when the file is a CSV, the function uses pandas to re
 </br>
 Lastly, when the database was created and populated, the SQLite connection is closed and the file path is cleaned (to avoid keeping all of the uploaded CSV's or XLSX's in my local directory.
 
-###2. Create_table
+### <a id="create-table"></a>2. Create_table
 >```python
 > def create_table(filename):
 >     """
@@ -523,7 +523,7 @@ Lastly, when the database was created and populated, the SQLite connection is cl
 
 This function has the role of reading CSV or XLSX files (just like ```create_db``` does) but it converts the pandas dataframe to a dictionary, if it the file is a CSV, or to a list of dictionaries, if the file is a XLSX. Then, the function also clears the plans directory and return the data to be used in the sheets.htm or tables.html templates.
 
-###3. Clean_files
+### <a id="clean-files"></a>3. Clean_files
 >```python
 >  def clean_files(session_id):
 >     """
